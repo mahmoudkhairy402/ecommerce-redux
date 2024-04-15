@@ -1,0 +1,105 @@
+.cardContainer {
+  width: 310px;
+  border-radius: 6px;
+  position: relative;
+  padding: 0;
+  color: var(--darktextColor);
+  transition: 0.3s;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+  &:hover {
+    transform: scale(1.01);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+      rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+      rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  }
+  &:hover img {
+    transform: scale(1.1) rotate(5deg);
+  }
+  &:hover .category {
+    transform: translateX(-10px);
+  }
+  .card {
+    text-transform: capitalize;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-radius: 6px 6px 0px 0px;
+    align-items: center;
+    .imgContainer {
+      max-width: 100%;
+      max-height: 170px;
+      border-radius: 6px;
+      overflow: hidden;
+      transition: 0.3s;
+
+      img {
+        transition: 0.3s;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+      }
+    }
+    .category {
+      transition: 0.3s;
+      position: absolute;
+      left: -5px;
+      top: 17px;
+      background-color: var(--mainColor);
+      padding: 5px;
+      font-size: 12px;
+      color: var(--textColor);
+
+      .categoryAfter {
+        position: absolute;
+        left: 2px;
+        top: 20px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 7px;
+        border-color: transparent transparent transparent var(--mainColor);
+        transform: rotate(-45deg);
+        opacity: 0.8;
+      }
+    }
+    .brand {
+      color: var(--darktextColor);
+      font-size: 18px;
+      .brandIndent {
+        opacity: 0.8;
+        font-size: 16px;
+      }
+    }
+    .title {
+      font-size: 20px;
+      text-align: center;
+    }
+    .pricecontainer {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+
+      .realprice {
+        font-size: 14px;
+        opacity: 0.7;
+        text-decoration: line-through;
+      }
+      .priceAfterDiscount {
+        font-size: 20px;
+      }
+      .discount {
+        font-size: 16px;
+        color: var(--orange);
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .cardContainer {
+    width: 100%;
+  }
+}

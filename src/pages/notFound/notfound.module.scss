@@ -1,0 +1,24 @@
+.emptyCart {
+  margin: 20px auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  text-transform: capitalize;
+  .noMatching {
+    font-size: 26px;
+    color: var(--darkGray);
+  }
+}
+.buyNow {
+  background-color: var(--orange);
+  color: var(--textColor);
+  border: 1px solid var(--textColor);
+  &:hover {
+    color: var(--orange);
+    background-color: var(--textColor);
+    border: 1px solid var(--orange);
+  }
+}
