@@ -247,10 +247,7 @@ export default function productDetails() {
                     </div>
                   )}
 
-                  <div
-                    onClick={handleClearCart}
-                    className={` btn rounded-0 ${styles.buyNow}`}
-                  >
+                  <div className={` btn rounded-0 ${styles.buyNow}`}>
                     buy Now
                   </div>
                 </div>
