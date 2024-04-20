@@ -19,7 +19,7 @@ export default function Header() {
 
   return (
     <div className={`${styles.header} sticky-top `}>
-      <div className={`${styles.topLinks} container `}>
+      <div className={`${styles.topLinks}  `}>
         <ul className={`${styles.topLinksul} m-0`}>
           <li>
             <Link to="/">seller center</Link>

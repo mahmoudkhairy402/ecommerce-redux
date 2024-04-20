@@ -1,8 +1,9 @@
 .cart {
   table {
     font-weight: 600;
-    max-width: 100%;
-    overflow-x: scroll;
+    width: 100%;
+    table-layout: fixed;
+
     td {
       text-align: center;
       color: var(--mainColor);
