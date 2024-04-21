@@ -10,12 +10,15 @@ import {
 import Card from "../../components/card/card";
 import NotFound from "../notFound/notFound";
 
-export default function Category() {
+export default function Search() {
   let { searchItem } = useParams();
   console.log("🚀 ~ Category ~ category:", searchItem);
   const dispatch = useDispatch();
-  const products = useSelector(getSearchProducts);
-  console.log("🚀 ~ Category ~ products:", products);
+  const data = useSelector(getSearchProducts);
+  console.log("🚀 ~ Search ~ data:", data);
+  const { products, total } = data;
+  console.log("🚀 ~ Search ~ total:", total);
+  console.log("🚀 ~ products ~ products:", products);
 
   useEffect(() => {
     startTransition(() => {
@@ -25,7 +28,7 @@ export default function Category() {
 
   return (
     <div className={`container ${styles.productsContainer}`}>
-      {products.products.length != 0 && (
+      {total != 0 && (
         <div className={`${styles.primaryTitle}`}>
           search resulus for "{searchItem}"
         </div>
@@ -33,12 +36,12 @@ export default function Category() {
       <div
         className={` row d-flex flex-wrap w-100 justify-content-center gap-4  ${styles.products} my-5`}
       >
-        {products.products.length != 0 ? (
-          products.products.map((product) => {
+        {total != 0 ? (
+          products.map((product) => {
             return <Card product={product} />;
           })
         ) : (
-          <NotFound title="no matching products" />
+          <NotFound title={`no matching products "${searchItem}"`} />
         )}
       </div>
     </div>
