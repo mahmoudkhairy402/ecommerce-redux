@@ -9,19 +9,27 @@ import { getAllCategories, fetchCategory } from "../../Redux/categorySlice";
 
 export default function Home() {
   const [limit, setLimit] = useState(18);
+  console.log("🚀 ~ Home ~ limit:", limit);
+  const [maxLimit, setMaxLimit] = useState(100);
   const dispatch = useDispatch();
   const products = useSelector(getAllProducts);
+  const [randomProducts, setRandomProducts] = useState([]);
+  console.log("🚀 ~ Home ~ products:", products);
   const categories = useSelector(getAllCategories);
-  const randomProducts = [];
-  if (products.length !== 0) {
-    products.forEach((ele) => {
-      let randomIndex = Math.floor(Math.random() * products.length);
-      while (randomProducts.includes(products[randomIndex])) {
-        randomIndex = Math.floor(Math.random() * products.length);
-      }
-      randomProducts.push(products[randomIndex]);
-    });
-  }
+
+  useEffect(() => {
+    if (products.length !== 0) {
+      const newProducts = [];
+      products.forEach((ele) => {
+        let randomIndex = Math.floor(Math.random() * products.length);
+        while (newProducts.includes(products[randomIndex])) {
+          randomIndex = Math.floor(Math.random() * products.length);
+        }
+        newProducts.push(products[randomIndex]);
+      });
+      setRandomProducts((prev) => [...prev, ...newProducts]);
+    }
+  }, [products]);
 
   console.log("🚀 ~ Home ~ products:", products);
   console.log("🚀 ~ products.forEach ~ randomProducts:", randomProducts);
@@ -29,6 +37,10 @@ export default function Home() {
     dispatch(fetchProducts(limit));
     dispatch(fetchCategory());
   }, [limit]);
+
+  useEffect(() => {
+    dispatch(fetchCategory());
+  }, []);
 
   let firstCat = products.filter(
     (product) => product.category == categories[0]
@@ -61,6 +73,16 @@ export default function Home() {
               <Loading width={100} />
             )}
           </div>
+          <button
+            className={`btn btn-danger ${styles.showMore} ${
+              limit >= maxLimit && styles.disabled
+            }`}
+            onClick={() => {
+              setLimit((old) => old + 6);
+            }}
+          >
+            show more
+          </button>
 
           <div className={styles.primaryTitle}>{categories[0]}</div>
           <div
@@ -111,26 +133,6 @@ export default function Home() {
             )}
           </div>
         </div>
-
-        {/* {limit >= 6 ? (
-          <button
-            className={`btn btn-danger w-100 mx-auto ${limit <= 6 && disabled}`}
-            onClick={() => {
-              handleIncreaseLimit();
-            }}
-          >
-            show more
-          </button>
-        ) : (
-          <div
-            className="btn btn-danger w-100 my-3 mx-auto "
-            onClick={() => {
-              handleDecreaseLimit();
-            }}
-          >
-            show less
-          </div>
-        )} */}
       </div>
     </>
   );

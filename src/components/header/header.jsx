@@ -53,7 +53,7 @@ export default function Header() {
         <Navbar />
       </div>
       <ul
-        className={`${styles.categories} d-flex align-items-center justify-content-center mb-1 `}
+        className={`${styles.categories} d-flex align-items-center justify-content-center mb-1`}
         style={{ listStyle: "none" }}
       >
         {categories.length != 0 ? (

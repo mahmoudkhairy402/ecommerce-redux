@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./navbar.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { FaLongArrowAltRight } from "react-icons/fa";
@@ -11,6 +11,8 @@ import Loading from "../loading/loading";
 import Logo from "../logo/logo";
 
 export default function Navbar() {
+  const cartRef = useRef(null); // Ref for the cart offcanvas element
+
   const dispatch = useDispatch();
   const categories = useSelector(getAllCategories);
   const cartItemsCount = useSelector(getICartItemsCount);
@@ -26,9 +28,24 @@ export default function Navbar() {
   useEffect(() => {
     dispatch(fetchCategory());
   }, []);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (cartRef.current && !cartRef.current.contains(event.target)) {
+        setCartVisable(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <div className={styles.navbar}>
-      <nav className="navbar navbar-dark py-2 ">
+      <nav className="navbar navbar-dark pb-0 ">
         <div className={`${styles.navbarContent} container`}>
           <button
             className="navbar-toggler me-4 text-white"
@@ -68,7 +85,8 @@ export default function Navbar() {
             </Link>
           </form>
           <div
-            className={styles.cart}
+            //!
+            className={` ${styles.cart}`}
             onClick={() => {
               cartVisable ? setCartVisable(false) : setCartVisable(true);
             }}
@@ -78,7 +96,7 @@ export default function Navbar() {
               <div className={styles.cartCount}>{cartItemsCount}</div>
             )}
             {cartVisable && (
-              <div className={styles.cartUl}>
+              <div className={`  ${styles.cartUl}`} ref={cartRef}>
                 {cartItems.length > 0 && (
                   <h4 className={styles.cartUlTitle}>
                     recently added products...

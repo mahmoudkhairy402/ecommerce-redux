@@ -1,4 +1,4 @@
-import React, { startTransition, useEffect } from "react";
+import React, { startTransition, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styles from "../category/category.module.scss";
@@ -9,41 +9,48 @@ import {
 
 import Card from "../../components/card/card";
 import NotFound from "../notFound/notFound";
-
+import Loading from "../../components/loading/loading";
 export default function Search() {
   let { searchItem } = useParams();
-  console.log("🚀 ~ Category ~ category:", searchItem);
   const dispatch = useDispatch();
-  const data = useSelector(getSearchProducts);
-  console.log("🚀 ~ Search ~ data:", data);
-  const { products, total } = data;
+  const { products, total, limit } = useSelector(getSearchProducts);
+  console.log("🚀 ~ Search ~ limit:", limit);
   console.log("🚀 ~ Search ~ total:", total);
-  console.log("🚀 ~ products ~ products:", products);
+  console.log("🚀 ~ Search ~ products:", products);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     startTransition(() => {
-      dispatch(fetchSearchProducts(searchItem));
+      setLoading(true);
+      dispatch(fetchSearchProducts(searchItem))
+        .then(() => setLoading(false))
+        .catch((error) => {
+          console.error("Error fetching search products:", error);
+          setLoading(false);
+        });
     });
-  }, [searchItem]);
+  }, [dispatch, searchItem]);
 
   return (
     <div className={`container ${styles.productsContainer}`}>
-      {total != 0 && (
-        <div className={`${styles.primaryTitle}`}>
-          search resulus for "{searchItem}"
-        </div>
+      {loading ? (
+        <Loading />
+      ) : total > 0 ? (
+        <>
+          <div className={`${styles.primaryTitle}`}>
+            search results for "{searchItem}" , ({total}) elements
+          </div>
+          <div
+            className={`row d-flex flex-wrap w-100 justify-content-center gap-4 ${styles.products} my-5`}
+          >
+            {products.map((product) => (
+              <Card key={product.id} product={product} />
+            ))}
+          </div>
+        </>
+      ) : (
+        <NotFound title={`No matching products for "${searchItem}"`} />
       )}
-      <div
-        className={` row d-flex flex-wrap w-100 justify-content-center gap-4  ${styles.products} my-5`}
-      >
-        {total != 0 ? (
-          products.map((product) => {
-            return <Card product={product} />;
-          })
-        ) : (
-          <NotFound title={`no matching products "${searchItem}"`} />
-        )}
-      </div>
     </div>
   );
 }
