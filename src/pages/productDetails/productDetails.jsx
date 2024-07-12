@@ -12,7 +12,7 @@ import {
 } from "../../Redux/productsSlice";
 
 import { addToCart, clearCart, getCartItems } from "../../Redux/cartSlice";
-export default function productDetails() {
+export default function ProductDetails() {
   const [quantity, setQuantity] = useState(1);
   const [addAvailability, setAddAvailability] = useState(true);
   let { productId } = useParams();

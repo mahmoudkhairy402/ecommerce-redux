@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../components/loading/loading";
 import { Link } from "react-router-dom";
 
-export default function cart() {
+export default function Cart() {
   const dispatch = useDispatch();
   const carts = useSelector(getCartItems);
   const totalAmount = useSelector(getICartTotalAmount);

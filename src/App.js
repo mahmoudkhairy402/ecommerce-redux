@@ -1,23 +1,20 @@
+//! Redux
+import store from "./Redux/store";
+import { Provider } from "react-redux";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { lazy, startTransition, Suspense } from "react";
+import { lazy, Suspense } from "react";
 
 import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
 const Home = lazy(() => import("./pages/Home/Home"));
-const Cart = lazy(() => import("./pages/cart/cart"));
 const Search = lazy(() => import("./pages/search/search"));
+const Cart = lazy(() => import("./pages/cart/Cart"));
 const CategorProducts = lazy(() => import("./pages/category/category"));
 const NotFound = lazy(() => import("./pages/notFound/notFound"));
 const ProductDetails = lazy(() =>
-  import("./pages/productDetails/productDetails")
+  import("./pages/productDetails/ProductDetails")
 );
-
-//! Redux
-import store from "./Redux/store";
-// import Footer from "./components/footer/footer";
-import { Provider } from "react-redux";
-import Navbar from "./components/navbar/navbar";
 
 const Loading = lazy(() => import("./components/loading/loading"));
 
