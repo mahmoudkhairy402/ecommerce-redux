@@ -27,10 +27,9 @@ export default function Home() {
         }
         newProducts.push(products[randomIndex]);
       });
-      setRandomProducts((prev) => [...prev, ...newProducts]);
+      setRandomProducts(newProducts);
     }
   }, [products]);
-
   console.log("🚀 ~ Home ~ products:", products);
   console.log("🚀 ~ products.forEach ~ randomProducts:", randomProducts);
   useEffect(() => {
@@ -41,18 +40,17 @@ export default function Home() {
   useEffect(() => {
     dispatch(fetchCategory());
   }, []);
-
   let firstCat = products.filter(
-    (product) => product.category == categories[0]
+    (product) => product.category == categories[0].slug
   );
   let secondCat = products.filter(
-    (product) => product.category == categories[1]
+    (product) => product.category == categories[1].slug
   );
   let thirdCat = products.filter(
-    (product) => product.category == categories[2]
+    (product) => product.category == categories[2].slug
   );
   let fourthCat = products.filter(
-    (product) => product.category == categories[3]
+    (product) => product.category == categories[3].slug
   );
 
   return (
@@ -84,7 +82,7 @@ export default function Home() {
             show more
           </button>
 
-          <div className={styles.primaryTitle}>{categories[0]}</div>
+          <div className={styles.primaryTitle}>{categories[0]?.name}</div>
           <div
             className={` row d-flex flex-wrap w-100 justify-content-center gap-4  ${styles.products}`}
           >
@@ -96,7 +94,7 @@ export default function Home() {
               <Loading width={100} />
             )}
           </div>
-          <div className={styles.primaryTitle}>{categories[1]}</div>
+          <div className={styles.primaryTitle}>{categories[1]?.name}</div>
           <div
             className={` row d-flex flex-wrap w-100 justify-content-center gap-4  ${styles.products}`}
           >
@@ -108,7 +106,7 @@ export default function Home() {
               <Loading width={100} />
             )}
           </div>
-          <div className={styles.primaryTitle}>{categories[2]}</div>
+          <div className={styles.primaryTitle}>{categories[2]?.name}</div>
           <div
             className={` row d-flex flex-wrap w-100 justify-content-center gap-4  ${styles.products}`}
           >
@@ -120,7 +118,7 @@ export default function Home() {
               <Loading width={100} />
             )}
           </div>
-          <div className={styles.primaryTitle}>{categories[3]}</div>
+          <div className={styles.primaryTitle}>{categories[3]?.name}</div>
           <div
             className={` row d-flex flex-wrap w-100 justify-content-center gap-4  ${styles.products}`}
           >

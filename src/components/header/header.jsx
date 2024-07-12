@@ -12,6 +12,7 @@ import Loading from "../loading/loading";
 export default function Header() {
   const dispatch = useDispatch();
   const categories = useSelector(getAllCategories);
+  console.log("🚀 ~ Header ~ categories:", categories);
   console.log("🚀 ~ categories ~ categories:", categories);
   useEffect(() => {
     dispatch(fetchCategory());
@@ -59,19 +60,17 @@ export default function Header() {
         {categories.length != 0 ? (
           categories.slice(0, 8).map((ele, index) => {
             return (
-              <>
-                <li className="nav-item">
-                  <Link
-                    to={`categories/${ele}`}
-                    key={index}
-                    className="nav-link active"
-                    aria-current="page"
-                    href="#"
-                  >
-                    {ele.replace("-", " ")}
-                  </Link>
-                </li>
-              </>
+              <li className="nav-item">
+                <Link
+                  to={`categories/${ele?.slug?.replace(" ", "-")}`}
+                  key={index}
+                  className="nav-link active"
+                  aria-current="page"
+                  href="#"
+                >
+                  {ele?.name.replace("-", " ")}
+                </Link>
+              </li>
             );
           })
         ) : (

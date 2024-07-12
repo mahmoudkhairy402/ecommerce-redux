@@ -156,19 +156,18 @@ export default function Navbar() {
                 {categories.length != 0 ? (
                   categories.map((ele, index) => {
                     return (
-                      <>
-                        <li className="nav-item">
-                          <Link
-                            to={`categories/${ele}`}
-                            key={index}
-                            className="nav-link active"
-                            aria-current="page"
-                            href="#"
-                          >
-                            {ele.replace("-", " ")}
-                          </Link>
-                        </li>
-                      </>
+                      <li className="nav-item">
+                        <Link
+                          to={`categories/${ele?.slug?.replace(" ", "-")}`}
+                          key={index}
+                          className="nav-link active"
+                          aria-current="page"
+                          href="#"
+                        >
+                          {ele?.name?.replace("-", " ")}
+                          {/* {ele.name} */}
+                        </Link>
+                      </li>
                     );
                   })
                 ) : (

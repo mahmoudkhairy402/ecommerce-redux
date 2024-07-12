@@ -15,7 +15,7 @@ export default function Category() {
   console.log("🚀 ~ Category ~ category:", category);
   const dispatch = useDispatch();
   const products = useSelector(getSpecificCategories);
-  console.log("🚀 ~ Category ~ products:", products);
+  console.log("🚀🚀🚀🚀 ~ Category ~ products:", products);
 
   useEffect(() => {
     dispatch(fetchProductsCategory(category));
